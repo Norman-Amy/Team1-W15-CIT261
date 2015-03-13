@@ -6,18 +6,64 @@
 		<meta name="Description" content="This is Team 1's app for CIT 261 - WI15">
 		<script type="text/javascript">
 
+			function loadExistingCars(){
+				var dbCars = loadLocalStorage();
+				if (dbCars.carNames){
+
+					for (var i = 0; i < dbCars.carNames.length; i++){
+						var option = document.createElement("OPTION");
+						document.chooseCar.car.appendChild(option).setAttribute("name", "car").setAttribute("value", dbCars.carNames[i].name).innerHTML() = dbCars.carNames[i].name;
+
+					}
+				}
+			}
+
+            function loadLocalStorage(){
+            	return localStorage.getItem('dbCars');
+            }
+
+			function selectCar(){
+				var newCar = document.addCar.car.value;
+				var dbCars = loadLocalStorage();
+
+				if (newCar != ""){
+					if (dbCars.carNames){
+						dbCars.carNames.push({ name: newCar });
+						localStorage.setItem('dbCars', dbCars);
+					} else {
+						dbCars = {
+							carNames: [
+								{
+									name: newCar
+								}
+							]
+						};
+						localStorage.setItem('dbCars' , JSON.stringify(dbCars));
+						console.log(loadLocalStorage());
+					}
+
+				}
+			}
 		</script>
 	</head>
 	<body>
 		<h1> Fuel Economy Calculator </h1>
 		<div id="content">
-			<h2> Select your Vehicle </h2>
+			<h2> Select Existing Vehicle </h2>
 			<form name="chooseCar">
 	       		<select name="car">
-	       			<option name="car" value="">Add new car</option>
+	       		 	<script type="text/javascript">
+	       				loadExistingCars();
+	       			</script>
+	       			<option name="car" value="n/a">Select a vehicle</option>
 	       		</select> 
 			</form>
+
+			<h2> Or Add a New Vehicle </h2>
+			<form name="addCar">
+				<input type="text" name="car" value="" />
+			</form>
 		</div>
-		<input type="button" id="next" onclick="" value="Next"/>
+		<input type="button" id="next" onclick="selectCar()" value="Next"/>
 	</body>
 </html>
