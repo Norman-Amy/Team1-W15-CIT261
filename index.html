@@ -4,12 +4,12 @@
 		<title> Fuel Economy Calculator </title>
 		<meta name="Author" content="Amy Norman and Crystal Coatney">
 		<meta name="Description" content="This is Team 1's app for CIT 261 - WI15">
+		<meta charset="UTF-8">
 		<script type="text/javascript">
 
 			function loadExistingCars(){
 				var dbCars = JSON.parse(loadLocalStorage());
-
-				if (dbCars.carNames != undefined || dbCars.carNames != "null"){
+				if (dbCars == "null"){
 
 					for (var i = 0; i < dbCars.carNames.length; i++){
 						var option = document.createElement("OPTION");
