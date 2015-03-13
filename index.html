@@ -13,9 +13,16 @@
 
 					for (var i = 0; i < dbCars.carNames.length; i++){
 						var option = document.createElement("OPTION");
-						document.chooseCar.car.appendChild(option).setAttribute("name", "car").setAttribute("value", dbCars.carNames[i].name).innerHTML() = dbCars.carNames[i].name;
+						document.chooseCar.car.appendChild(option);
+						var current = document.chooseCar.car[i];
+						current.innerHTML = dbCars.carNames[i].name;
+						current.setAttribute("name", "car");
+						current.setAttribute("value", dbCars.carNames[i].name);
 
 					}
+				} else {
+					document.chooseCar.innerHTML = "<p> No cars exist </p>";
+					document.chooseCar.style.color = "red";
 				}
 			}
 
@@ -55,7 +62,6 @@
 	       		 	<script type="text/javascript">
 	       				loadExistingCars();
 	       			</script>
-	       			<option name="car" value="n/a">Select a vehicle</option>
 	       		</select> 
 			</form>
 
@@ -64,6 +70,7 @@
 				<input type="text" name="car" value="" />
 			</form>
 		</div>
+		<br>
 		<input type="button" id="next" onclick="selectCar()" value="Next"/>
 	</body>
 </html>
