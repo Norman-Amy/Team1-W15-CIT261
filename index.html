@@ -7,8 +7,9 @@
 		<script type="text/javascript">
 
 			function loadExistingCars(){
-				var dbCars = loadLocalStorage();
-				if (dbCars.carNames){
+				var dbCars = JSON.parse(loadLocalStorage());
+
+				if (dbCars.carNames != undefined || dbCars.carNames != "null"){
 
 					for (var i = 0; i < dbCars.carNames.length; i++){
 						var option = document.createElement("OPTION");
@@ -39,7 +40,6 @@
 							]
 						};
 						localStorage.setItem('dbCars' , JSON.stringify(dbCars));
-						console.log(loadLocalStorage());
 					}
 
 				}
