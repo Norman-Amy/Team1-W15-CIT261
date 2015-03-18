@@ -158,10 +158,6 @@
 					   	// Change next button
 					   	document.getElementById("next").onclick = saveMiles;
 
-					} else {
-						
-					    // Display error
-					    document.getElementById("errors").innerHTML = "<p> Could not load next form. Please try running in browser. </p>";
 					}
 				}
 				xmlhttp.open("GET","miles.html",true);
@@ -171,15 +167,33 @@
 
 			// This function will save the inputted miles and then call the next form to load
 			function saveMiles(){
-				console.log("saveMiles works");
 
-				// Add code to grab miles
+				// Grab inputted miles
+				var miles = parseInt(document.milesForm.miles.value);
+
 				// Verify that miles is inputted properly
-				// save miles in local storage
-				
-				// load Gallons form
+				if (isNaN(miles) || miles === null || miles === undefined || miles <= 0){
+					// Prompt user to re-input miles
+					document.getElementById("errors").innerHTML = "<p> Invalid miles. Please try again. </p>";
+					document.getElementById("errors").style.color = "red";
+
+				} else {
+					// Clear error message if it exists
+					document.getElementById("errors").innerHTML = "";
+
+					// Miles are valid. Save in local storage
+					localStorage.setItem('mpg', JSON.stringify({ "miles": miles, "gallons": null}));
+
+					// Load next form: Gallons
+					loadGallonsForm();
+				}
 			}
 
+
+			// This is a placeholder function for loading the Gallons form
+			function loadGallonsForm(){
+				// Add AJAX request to load form here
+			}
 
 		</script>
 	</head>
