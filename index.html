@@ -57,12 +57,12 @@
 			}
 			// This function will grab the car object out of local storage 
 			// and parse it into a JavaScript object
-            function loadLocalStorage(){
-            	return JSON.parse(localStorage.getItem('dbCars'));
-            }
-            // This function will take the car selected from either form.
-            // If a new car was added, save that and add it to list of cars.
-            // If an existing car was selected, save it to local storage.
+		        function loadLocalStorage(){
+		        	return JSON.parse(localStorage.getItem('dbCars'));
+		        }
+		        // This function will take the car selected from either form.
+		        // If a new car was added, save that and add it to list of cars.
+		        // If an existing car was selected, save it to local storage.
 			function selectCar(){
 				var newCar = document.addCar.car.value;
 				var existingCar = document.chooseCar.car.value;
@@ -192,22 +192,40 @@
 				} else {
 					// Clear error message if it exists
 					document.getElementById("errors").innerHTML = "";
-				var mpg = JSON.parse(localStorage.getItem('mpg'));
-                                mpg.gallons = gallons;
-                                
-            // Gallons are valid. Save in local storage
-				localStorage.setItem('mpg', JSON.stringify(mpg));
-				loadCalculatingView();	
+					//Grab exisitng mpg item
+					var mpg = JSON.parse(localStorage.getItem('mpg'));
+					// Update gallons
+                    			mpg.gallons = gallons;
+	            			// Gallons are valid. Save in local storage
+					localStorage.setItem('mpg', JSON.stringify(mpg));
+					// Load next view: Calculating
+					loadCalculatingView();	
 				}
 			}
-                       function loadCalculatingView(){
-                           document.getElementById("content").innerHTML = "<h2> Calculating</h2>";
-                           
-                           setTimeout(function(){displayResults();},3000);
-                       } 
-                       function displayResults(){
-                         //pull local storage on mpg and selectedCar,save into var, 
-                       }
+			// This function will load the "Calculating" screen for 3 seconds then call the display screen 
+            		function loadCalculatingView(){
+           			// Replace the content on the page
+		            	document.getElementById("content").innerHTML = "<h2> Calculating</h2>";
+		                // Remove next button (no longer needed)
+		                var next = document.getElementById('next');
+		                next.parentNode.removeChild(next);
+		
+		                // Start timer for 3 seconds, then load next view: display
+		            	setTimeout(function(){displayResults();},3000);
+                             	
+		         } 
+		         // This function will calculate and then output the mpg to the screen.
+		         function displayResults(){
+                                var dbCars = localStorage.getItem('dbCars');
+                                // Get selected car out of storage
+				var selectedCar = JSON.parse(localStorage.getItem('selectedCar'));
+                              // Grab inputted miles
+				var mpg = JSON.parse(localStorage.getItem('mpg'));
+                        
+                             
+    }
+			
+		         
                   
 		</script>
 	</head>
@@ -229,8 +247,8 @@
 		</div>
 		<br>
 		<input type="button" id="next" onclick="selectCar()" value="Next"/>
-                <script type="text/javascript">
-	       				loadExistingCars();
-	       			</script>
+        	<script type="text/javascript">
+			loadExistingCars();
+		</script>
 	</body>
 </html>
