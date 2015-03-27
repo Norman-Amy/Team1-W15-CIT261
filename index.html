@@ -218,7 +218,7 @@
 		         } 
 		         // This function will calculate and then output the mpg to the screen.
 		         function displayResults(){
-                                var dbCars = localStorage.getItem('dbCars');
+                                var dbCars = loadLocalStorage();
                                 // Get selected car out of storage
 				var selectedCar = JSON.parse(localStorage.getItem('selectedCar'));
                               // Grab inputted miles
@@ -228,7 +228,7 @@
 
 				selectedCar.allMpg.push(currentMpg);
 
-				var averageMpg;
+				var averageMpg = 0;
 
 				selectedCar.numOfFills += 1;
 
@@ -237,17 +237,20 @@
 				}
 
 				averageMpg /= selectedCar.numOfFills;
+				averageMpg = averageMpg * 100;
+				averageMpg = Math.round(averageMpg) / 100;
 
 				selectedCar.avgMpg = averageMpg;
-
-				// Save back to local storage
-				localStorage.setItem('selectedCar', JSON.stringify(selectedCar));
 
 				for (var i = 0; i < dbCars.carNames.length; i++){
 					if (dbCars.carNames[i].name == selectedCar.name){
 						dbCars.carNames[i] = selectedCar;
 					}
 				}
+
+				// Save back to local storage
+				localStorage.setItem('selectedCar', JSON.stringify(selectedCar));
+				localStorage.setItem('dbCars', JSON.stringify(dbCars));
 				
 				// Display results
 				document.getElementById('content').innerHTML = "<h2> Current MPG for " + 
