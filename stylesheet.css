@@ -47,9 +47,9 @@ input.text.focus{
     margin-top: 15px;
 position: relative;
 height:250px;
-width: 200px;
 background: url("images/road.jpg");
 width:650px;
+
 }
 
 
@@ -89,17 +89,17 @@ position: absolute;
     transform: rotate(-95deg);
     left: 50px;
     top: 60px;
-    -webkit-animation: rotate 3s infinite linear;
-    animation: rotate 3s infinite linear;
+    -webkit-animation: rotate 3s linear;
+    animation: rotate 3s linear;
 }
 
 #needle {
-    -webkit-animation: move-y 3s infinite linear;
-    animation: move-y 3s infinite linear;
+    -webkit-animation: move-y 3s linear;
+    animation: move-y 3s linear;
 }
 #needleX {
-    -webkit-animation: move-x 3s infinite linear;
-    animation: move-x 3s infinite linear;
+    -webkit-animation: move-x 3s linear;
+    animation: move-x 3s linear;
 }
 
 @-webkit-keyframes rotate {
@@ -155,3 +155,40 @@ select {
 #errors{
     color: red;
 }
+
+
+
+
+
+/* Generic media query */
+
+@media screen 
+  and (min-width: 200px) 
+  and (max-width: 700px) 
+ {
+
+      body{   
+    font-size: 1.5em;
+}
+
+h1{
+    width:95%;
+}
+
+
+input{
+    padding: 10px 15px 10px 15px;
+}
+
+select {
+    font-size: .9em;
+}
+
+#road
+{
+width:95%;
+}
+
+
+}
+
