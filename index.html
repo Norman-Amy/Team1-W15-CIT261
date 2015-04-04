@@ -120,7 +120,6 @@
                 } else {
                     // Display error to select a car (do not call next form)
                     document.getElementById("errors").innerHTML = "<p> An error occurred: Please select a car </p>";
-                    document.getElementById("errors").style.color = "black";
                 }
             }
             // This function will grab the miles form and display it on the screen
@@ -153,7 +152,6 @@
                 if (isNaN(miles) || miles === null || miles === undefined || miles <= 0) {
                     // Prompt user to re-input miles
                     document.getElementById("errors").innerHTML = "<p> Invalid miles. Please try again. </p>";
-                    document.getElementById("errors").style.color = "black";
                 } else {
                     // Clear error message if it exists
                     document.getElementById("errors").innerHTML = "";
@@ -193,7 +191,6 @@
                 if (isNaN(gallons) || gallons === null || gallons === undefined || gallons <= 0) {
                     // Prompt user to re-input miles
                     document.getElementById("errors").innerHTML = "<p> Invalid gallons. Please try again. </p>";
-                    document.getElementById("errors").style.color = "black";
                 } else {
                     // Clear error message if it exists
                     document.getElementById("errors").innerHTML = "";
@@ -210,7 +207,8 @@
             // This function will load the "Calculating" screen for 3 seconds then call the display screen 
             function loadCalculatingView() {
                 // Replace the content on the page
-                document.getElementById("content").innerHTML = "<h2> Calculating</h2>";
+                document.getElementById("content").innerHTML = "<h2> Calculating</h2>"
+                    + "<div id='fuel'><div id='needle'><div id='needleX'><img src='images/needle.png' alt='needle'/></div></div></div>";
                 // Remove next button (no longer needed)
                 var next = document.getElementById('next');
                 next.parentNode.removeChild(next);
