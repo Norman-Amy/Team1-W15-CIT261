@@ -76,14 +76,15 @@
 					// Check if this is not the first car
 					if (dbCars != undefined && dbCars != null){
 						// Add new car to object
-						dbCars.carNames.push({ name: newCar, mpg: 0, numOfFills: 0 });
+						dbCars.carNames.push({ name: newCar, avgMpg: 0, allMpg: [], numOfFills: 0 });
 					} else {
 						// Create a new car object
 						dbCars = {
 							carNames: [
 								{
 									name: newCar,
-									mpg: 0,
+									avgMpg: 0,
+									allMpg: [],
 									numOfFills: 0
 								}
 							]
@@ -92,7 +93,7 @@
 					// Save changes to local storage
 					localStorage.setItem('dbCars' , JSON.stringify(dbCars));
 					// Save new car as selected
-					localStorage.setItem('selectedCar', JSON.stringify({ name: newCar, mpg: 0, numOfFills: 0 }));
+					localStorage.setItem('selectedCar', JSON.stringify({ name: newCar, avgMpg: 0, allMpg: [], numOfFills: 0 }));
 					// Call next form: Miles
 					loadMilesForm();
 				} else if (newCar == "" && existingCar != ""){
@@ -102,7 +103,8 @@
 						if (element.name === existingCar){
 							var car = {
 								name: element.name,
-								mpg: element.mpg,
+								avgMpg: element.avgMpg,
+								allMpg: element.allMpg,
 								numOfFills: element.numOfFills
 							};
 							// Save existing car to localStorage
@@ -221,8 +223,30 @@
 				var selectedCar = JSON.parse(localStorage.getItem('selectedCar'));
                               // Grab inputted miles
 				var mpg = JSON.parse(localStorage.getItem('mpg'));
-                        
-                             
+				var currentMpg = mpg.miles / mpg.gallons;
+				selectedCar.allMpg.push(currentMpg);
+				var averageMpg;
+				selectedCar.numOfFills += 1;
+				for (var i = 0; i < selectedCar.allMpg.length; i++){
+					averageMpg += selectedCar.allMpg[i];
+				}
+				averageMpg /= selectedCar.numOfFills;
+				selectedCar.avgMpg = averageMpg;
+				// Save back to local storage
+				localStorage.setItem('selectedCar', JSON.stringify(selectedCar));
+				for (var i = 0; i < dbCars.carNames.length; i++){
+					if (dbCars.carNames[i].name == selectedCar.name){
+						dbCars.carNames[i] = selectedCar;
+					}
+				}
+				
+				// Display results
+				document.getElementById('content').innerHTML = "<h2> Current MPG for " + 
+					selectedCar.name + "</h2>" +
+					"<p id='currentMpg'>" + currentMpg + "</p>" +
+					"<h2> Average MPG Overall </h2>" +
+					"<p id='averageMpg'>" + averageMpg + "</p>";
+                  
     }
 			
 		         
